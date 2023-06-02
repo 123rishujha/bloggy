@@ -10,7 +10,7 @@ const messageRoutes = express.Router();
 //sendMessage - (post)- -> /api/message/:chatId
 messageRoutes.post("/:chatId",authMiddleware,sendMessage);
 
-//sendMessage - (get)- -> /api/message/:chatId
+//getMessages - (get)- -> /api/message/:chatId
 messageRoutes.get("/:chatId",authMiddleware,getMessages);
 
 
