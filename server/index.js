@@ -15,7 +15,7 @@ const app = express();
 
 app.use(express.json());
 //routes
-app.use("/api/auth",userRouter);
+app.use("/api/user",userRouter);
 app.use("/api/chat",chatRouter);
 app.use("/api/message",messageRoutes);
 

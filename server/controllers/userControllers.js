@@ -87,7 +87,65 @@ const loginController = async (req,res,next) => {
     }
 }
 
+const getAllUsers = async (req,res,next) => {
+    const {search} = req.query;
+    
+    let searchObj = {};
+    if(search){
+        searchObj = {
+            $or:[
+                { name: {$regex: search, $options: "i" } },
+                { email: {$regex: search, $options: "i" } } 
+            ]
+        }
+    }
+
+
+    try{
+        let usersFound = await UserModel.find(searchObj).select("-password");
+        res.json({
+            success:true,
+            result: usersFound
+        })
+    }
+    catch(err){
+        console.log("error in userControler getAllUsers");
+        next(err)
+    }
+};
+
+const getUser = async (req,res,next) => {
+    let userId = req.user._id;
+    if(!userId){
+        let error = new Error("Forbiden");
+        error.statusCode = 403;
+        return next(error);
+    }
+    // console.log(userId);
+    try{
+        let userFound = await UserModel.findById(userId,"-password");
+        if(!userFound){
+            let error = new Error("user not found");
+            error.statusCode = 404
+            return next(next)
+        }
+        if(userFound){
+            res.json({
+                success:true,
+                user: userFound
+            })
+        }
+    }
+    catch(err){
+        console.log("error in userControler getUser");
+        next(err)
+    }
+};
+
+
 module.exports={
     registerController,
-    loginController
+    loginController,
+    getAllUsers,
+    getUser
 }
