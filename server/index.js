@@ -11,6 +11,7 @@ const { userRouter } = require("./routes/userRoutes");
 const { chatRouter } = require("./routes/chatRoutes");
 const { messageRoutes } = require("./routes/messageRoutes");
 const { authMiddleware } = require("./middlewares/authMiddleware");
+const { use } = require("bcrypt/promises");
 
 const app = express();
 app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
@@ -54,7 +55,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(8080, async () => {
+const httpServer = app.listen(8080, async () => {
   console.log("server is running...");
   try {
     await connection;
@@ -64,3 +65,40 @@ app.listen(8080, async () => {
     console.log("Not connected to database");
   }
 });
+
+const io = require("socket.io")(httpServer, {
+  cors: {
+    // origin: `${process.env.FRONT_END_URL}`,
+    origin: "https://rik1o5-3000.csb.app",
+    credential: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  // console.log(socket);
+  console.log("connected to sockets");
+  socket.on("setup",(userId)=>{
+    socket.join(userId);
+    socket.emit("connected");
+  })
+  
+  //join chat/room
+  socket.on("join chat",(chatId)=>{
+    socket.join(chatId);
+  });
+  
+  socket.on("new message",(newMessageData)=>{
+    console.log("new message called",newMessageData.message);
+    let chat = newMessageData?.chatId;
+    if(!chat?.users) return;
+    // console.log("yes")
+    chat.users.forEach((elem)=>{
+      console.log("forEach working",elem,newMessageData.sender._id);
+      if(elem != newMessageData.sender._id){
+        console.log(true,"for each");
+        socket.in(elem).emit('arrived',newMessageData);
+      }
+    })
+  })  
+});
+
