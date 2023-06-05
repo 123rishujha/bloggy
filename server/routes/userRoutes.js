@@ -12,7 +12,7 @@ userRouter.post("/login",loginController);
 //get users -> /api/user/
 userRouter.get("/",authMiddleware,getAllUsers);
 //get single user -> /api/user/profile
-userRouter.get("/profile",authMiddleware,getUser);
+userRouter.get("/profile/:userId?",authMiddleware,getUser);
 
 module.exports = {
     userRouter

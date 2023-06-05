@@ -1,0 +1,17 @@
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  background-color: #0d1b2a; /* Dark blue background color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #081724; /* Darker shade of blue for the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #4a90e2; /* Light blue color for the thumb */
+  border-radius: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #1667b9; /* Darker shade of light blue on hover */
+}
