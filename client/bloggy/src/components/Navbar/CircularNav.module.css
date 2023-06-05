@@ -1,0 +1,67 @@
+.menu {
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  /* border: 2px solid red; */
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+.menu > .toggle {
+  border-radius: 50%;
+  position: absolute;
+  bottom: -40%;
+  right: -30%;
+  width: 80px;
+  height: 80px;
+  background-color: skyblue;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-size: 25px;
+  color: white;
+}
+
+.menu .iconWrapper {
+  transition: ease-in-out 0.5s;
+  border-radius: 50%;
+  position: absolute;
+  /* bottom: -33px; */
+  bottom: -100%;
+
+  right: -100%;
+  overflow: hidden;
+  z-index: -1;
+  background: #1a202c;
+  background-color: skyblue;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-sizing: border-box;
+}
+
+.iconWrapper > .item {
+  position: absolute;
+  border-radius: 50%;
+  transition: 0.5s;
+  background-color: rgb(89, 159, 187);
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.iconWrapper > .item1 {
+  bottom: 22%;
+  left: 10%;
+}
+
+.iconWrapper > .item2 {
+  bottom: 50%;
+  left: 5%;
+}
+
+.iconWrapper > .item3 {
+  bottom: 73%;
+  left: 23%;
+}
+
+.iconWrapper > .item4 {
+  bottom: 73%;
+  left: 53%;
+}
