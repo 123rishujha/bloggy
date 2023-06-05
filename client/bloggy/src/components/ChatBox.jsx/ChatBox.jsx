@@ -15,28 +15,29 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getMessagesSuccess,
   sendMessageSuccess,
+  sendMessage
 } from "../../redux/message/message.actions";
+
+
+
+import { io } from "socket.io-client";
+
+export let socket; 
+// let selectedChatCompare;
 
 const ChatBox = ({ _id, chatName, pic }) => {
   const [text, setText] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false);
   const messages = useSelector((store) => store.messageReducer.messages);
   const user = useSelector((store) => store.userReducer?.user);
-  const dispatch = useDispatch();
-
   const chatBoxRef = useRef();
 
-  // Scroll to bottom function
-  const scrollToBottom = () => {
-    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  };
+  const dispatch = useDispatch();
 
-  // Add this useEffect hook to scroll to bottom whenever messages update
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  console.log("socketConnected", socketConnected);
 
   // console.log("id", _id, "chatName", chatName);
-  console.log("messages", messages);
+  // console.log("messages", messages);
 
   const handleText = (e) => {
     setText(e.target.value);
@@ -47,15 +48,44 @@ const ChatBox = ({ _id, chatName, pic }) => {
       // console.log("submit message");
       let payload = { message: text };
       setText("");
-      dispatch(sendMessageSuccess(_id, payload));
+      dispatch(sendMessageSuccess(_id, payload,socket));
     }
   };
 
+//making connection and setting up loggedIn user connection
+  useEffect(() => {
+    socket = io(`${process.env.REACT_APP_BASE_URL}`);
+    console.log("before setup", user); // this is loggedIn user
+    socket.emit("setup", user._id);
+    socket.on("connected", () => setSocketConnected(true));
+  }, []);
+
   useEffect(() => {
     if (_id) {
-      dispatch(getMessagesSuccess(_id));
+      dispatch(getMessagesSuccess(_id,socket));
     }
   }, [chatName, _id, dispatch]);
+
+  //scroll function below--------------------------
+  const scrollToBottom = () => {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  };
+
+  // Add this useEffect hook to scroll to bottom whenever messages update
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(()=>{
+   socket.on("arrived",(newMessageData)=>{
+     console.log("arrived called",newMessageData);
+     dispatch(sendMessage(newMessageData));
+     //sendMessage will not send data to server it will just update the reducers state with this newMessageData check message.actions file for better understanding;
+   }) 
+  },[])
+  
+  
+
 
   return (
     <Box

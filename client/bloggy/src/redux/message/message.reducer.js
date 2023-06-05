@@ -6,6 +6,10 @@ const initMessage = {
   error: false,
 };
 
+
+
+
+
 export const messageReducer = (state = initMessage, { type, payload }) => {
   switch (type) {
     case types.MESSAGE_LOADING: {
@@ -18,6 +22,7 @@ export const messageReducer = (state = initMessage, { type, payload }) => {
       return { ...state, loading: false, error: false, messages: payload };
     }
     case types.MESSAGE_POST_SUCCESS: {
+      // socket.emit("new message",payload)
       return {
         ...state,
         loading: false,

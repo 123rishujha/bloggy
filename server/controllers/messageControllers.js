@@ -16,6 +16,7 @@ const sendMessage = async (req, res, next) => {
     let savedMessage = await newMessage.save();
     try {
       savedMessage = await savedMessage.populate("sender", "-password");
+      savedMessage = await savedMessage.populate("chatId");
       res.json({
         success: true,
         message: "message sent",
@@ -39,7 +40,8 @@ const getMessages = async (req, res, next) => {
     let message = await MessageModel.find({ chatId }).populate(
       "sender",
       "-password"
-    );
+    ).populate("chatId");
+    ;
     res.json({
       success: true,
       message: "fetched all messages",
