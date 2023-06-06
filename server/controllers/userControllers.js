@@ -90,6 +90,23 @@ const loginController = async (req, res, next) => {
   }
 };
 
+
+const logoutController = (req,res,next)=>{
+  const user = req.user;
+  console.log("user from logout",user);
+  if(!user){
+      let error = new Error("User not Authorized");
+      error.statusCode = 401;
+      next(error);
+      return;
+  }else{
+    res.clearCookie("token");
+    res.status(200).json({success:true,message:"Logout successfully",user});
+  }
+}
+
+
+
 const getAllUsers = async (req, res, next) => {
   const { search } = req.query;
 
@@ -148,6 +165,7 @@ const getUser = async (req, res, next) => {
 module.exports = {
   registerController,
   loginController,
+  logoutController,
   getAllUsers,
   getUser,
 };
