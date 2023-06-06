@@ -72,8 +72,12 @@ const loginController = async (req, res, next) => {
           { userId: userFound._id },
           `${process.env.JWT_SECRET}`
         );
-        res.cookie("token",token,{httpOnly: true});
-        res.json({ success: true, message: "login successful", token });
+        // res.cookie("token",token,{httpOnly: false}).send({ success: true, message: "login successful", token });
+        res.cookie("token", token, {
+          httpOnly: true,
+          maxAge:  1000 * 60 * 60, // 1 hour,
+          // domain: "localhost",
+        }).send({success:true,token,message:"login successful"});
       } else {
         console.log("error occured while comparing password during login", err);
         next(err);

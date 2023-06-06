@@ -9,14 +9,14 @@ import { getProfileSuccess } from "./redux/user/user.actions";
 
 function App() {
   // console.log(`${process.env.REACT_APP_BASE_URL}`);
-  // const dispatch = useDispatch();
-  // const user = useSelector(store=>store.userReducer.user)
+  const dispatch = useDispatch();
+  const user = useSelector(store=>store.userReducer.user)
   
-  // console.log("user")
+  console.log("user app.js",user);
   
-  // useEffect(() => {
-  //   dispatch(getProfileSuccess);
-  // }, []);
+  useEffect(() => {
+    dispatch(getProfileSuccess());
+  }, []);
 
   const location = useLocation();
   return (

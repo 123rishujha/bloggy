@@ -4,12 +4,12 @@ const { UserModel } = require("../models/userModel");
 
 const authMiddleware = async (req,res,next) =>{
     // let token = req.headers?.authorization?.split(" ")[1];
-    let token = req.cookies.token;
+    // let token = req.cookies.token;
+    const token = req.cookies?.token;
     console.log("token from authmiddleware",token);
-    if(!token){
-       token = req.headers?.authorization?.split(" ")[1]
-    }
-    
+    // if(!token){
+    //    token = req.headers?.authorization?.split(" ")[1]
+    // }
     if(!token){
         let error = new Error("token not provided in the headers,please provide token");
         error.statusCode = 401;

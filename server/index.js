@@ -11,10 +11,20 @@ const { userRouter } = require("./routes/userRoutes");
 const { chatRouter } = require("./routes/chatRoutes");
 const { messageRoutes } = require("./routes/messageRoutes");
 const { authMiddleware } = require("./middlewares/authMiddleware");
-const { use } = require("bcrypt/promises");
+// const { use } = require("bcrypt/promises");
 
 const app = express();
-app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
+
+app.use(cookieParser(null,{
+  // domain:"localhost"
+  domain: `${process.env.DOMAIN}`
+ }));
+// app.use(cookieParser());
+
+app.use(cors({
+  origin: process.env.FRONT_END_URL, 
+  credentials: true
+}));
 // app.use((req, res, next) => {
 //   console.log(process.env.FRONT_END_URL);
 //   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -26,7 +36,6 @@ app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
 //   );
 //   next();
 // });
-app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", authMiddleware, (req, res) => {
@@ -68,8 +77,8 @@ const httpServer = app.listen(8080, async () => {
 
 const io = require("socket.io")(httpServer, {
   cors: {
-    // origin: `${process.env.FRONT_END_URL}`,
-    origin: "https://rik1o5-3000.csb.app",
+    origin: `${process.env.FRONT_END_URL}`,
+    // origin: "https://rik1o5-3000.csb.app",
     credential: true,
   },
 });

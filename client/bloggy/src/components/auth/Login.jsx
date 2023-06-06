@@ -40,9 +40,9 @@ const Login = () => {
   };
 
   //after login setting the users Details in redux
-  useEffect(() => {
-    dispatch(getProfileSuccess());
-  }, [isAuth]);
+  // useEffect(() => {
+  //   dispatch(getProfileSuccess());
+  // }, [isAuth]);
 
 
   useEffect(() => {
