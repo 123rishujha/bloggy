@@ -8,8 +8,10 @@ import {
   Input,
   FormControl,
   VStack,
+  IconButton
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
+import { ChevronLeftIcon } from '@chakra-ui/icons'
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -18,6 +20,7 @@ import {
   sendMessage
 } from "../../redux/message/message.actions";
 
+import MessageBox from './MessageBox';
 
 
 import { io } from "socket.io-client";
@@ -25,16 +28,17 @@ import { io } from "socket.io-client";
 export let socket; 
 // let selectedChatCompare;
 
-const ChatBox = ({ _id, chatName, pic }) => {
+const ChatBox = ({ _id, chatName, pic, setChatSelected }) => {
   const [text, setText] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const messages = useSelector((store) => store.messageReducer.messages);
   const user = useSelector((store) => store.userReducer?.user);
   const chatBoxRef = useRef();
+  // const boxWidthRef = useRef();
 
   const dispatch = useDispatch();
 
-  console.log("socketConnected", socketConnected);
+  // console.log("socketConnected", socketConnected);
 
   // console.log("id", _id, "chatName", chatName);
   // console.log("messages", messages);
@@ -55,7 +59,7 @@ const ChatBox = ({ _id, chatName, pic }) => {
 //making connection and setting up loggedIn user connection
   useEffect(() => {
     socket = io(`${process.env.REACT_APP_BASE_URL}`);
-    console.log("before setup", user); // this is loggedIn user
+    // console.log("before setup", user); // this is loggedIn user
     socket.emit("setup", user._id);
     socket.on("connected", () => setSocketConnected(true));
   }, []);
@@ -78,7 +82,7 @@ const ChatBox = ({ _id, chatName, pic }) => {
 
   useEffect(()=>{
    socket.on("arrived",(newMessageData)=>{
-     console.log("arrived called",newMessageData);
+    //  console.log("arrived called",newMessageData);
      dispatch(sendMessage(newMessageData));
      //sendMessage will not send data to server it will just update the reducers state with this newMessageData check message.actions file for better understanding;
    }) 
@@ -89,9 +93,10 @@ const ChatBox = ({ _id, chatName, pic }) => {
 
   return (
     <Box
+     display={{base:chatName ? "block":"none",md:"block"}}
       h="85vh"
       background="bgColor.darkBlue"
-      width="60%"
+      width={{base:"90%",md:"60%"}}
       borderRadius="20px"
       color="gray.700"
       padding="20px"
@@ -107,13 +112,16 @@ const ChatBox = ({ _id, chatName, pic }) => {
           backgroundColor="rgb(89, 159, 187)"
           color="white"
           borderRadius="15px"
-          justifyContent="flex-end"
+          justifyContent={{base:"space-between", md: "flex-end" } }
           alignItems="center"
         >
-          <Heading as="h4" size="md">
+          {chatName && <IconButton display={{base:"block",md:"none"}} onClick={()=>setChatSelected({})}  aria-label='go back' icon={<ChevronLeftIcon />} />}
+          <Flex alignItems='center'>
+            <Heading as="h4" size="md">
             {chatName}
           </Heading>
           <Avatar bg="skyblue" name={chatName} src={pic} />
+          </Flex>
         </Flex>
       </header>
 
@@ -132,23 +140,11 @@ const ChatBox = ({ _id, chatName, pic }) => {
             marginTop="10px"
             ref={chatBoxRef}
           >
-            {messages?.map((elem) => (
-              <Box
-                marginLeft={
-                  user?._id === elem?.sender?._id ? `calc(95% - 200px)` : "30px"
-                }
-                key={elem._id}
-                padding="10px"
-                width="200px"
-                bg="gray.400"
-                mb="10px"
-                borderRadius="15px"
-              >
-                <Text textAlign="left" fontWeight="600" fontSize="18px">
-                  {elem.message}
-                </Text>
-              </Box>
-            ))}
+            {
+              messages?.map((elem)=>{
+                return <MessageBox elem={elem} user={user} />
+              })
+            }
           </Box>
           <FormControl onKeyDown={send}>
             <Input

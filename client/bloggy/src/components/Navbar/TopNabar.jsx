@@ -12,18 +12,30 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Icon,
 } from "@chakra-ui/react";
-import { MoonIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { MoonIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+
+import { ImHome } from "react-icons/im";
+import { BsFillChatDotsFill } from "react-icons/bs";
 
 import SideDrawer from "../SideDrawer/SideDrawer";
 
-import { useSelector } from "react-redux";
+import Styles from "./TopNavbar.module.css";
+
+import { useSelector, useDispatch } from "react-redux";
+import { logoutSuccess } from "../../redux/user/user.actions";
 
 const TopNabar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const user = useSelector((store) => store.userReducer.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutSuccess());
+  };
 
   const handleNavigate = () => {
     navigate("/profile");
@@ -49,6 +61,28 @@ const TopNabar = () => {
         />
       </Flex>
       <Flex gap="10px" justifyContent="center" alignItems="center">
+        <Box className={Styles.iconWrapper}>
+          <Icon
+            boxShadow="2xl"
+            className={`${Styles.item} ${Styles.item1} `}
+            as={ImHome}
+            boxSize={10}
+            padding="10px"
+            cursor="pointer"
+            onClick={() => navigate("/blogs")}
+            _hover={{ background: "white", color: "black" }}
+          />
+          <Icon
+            boxShadow="2xl"
+            className={`${Styles.item} ${Styles.item3} `}
+            as={BsFillChatDotsFill}
+            boxSize={10}
+            padding="10px"
+            cursor="pointer"
+            onClick={() => navigate("/chat")}
+            _hover={{ background: "white", color: "black" }}
+          />
+        </Box>
         <SideDrawer />
         <Menu bg="button.bg">
           <MenuButton>
@@ -58,7 +92,7 @@ const TopNabar = () => {
           </MenuButton>
           <MenuList>
             <MenuItem onClick={handleNavigate}>Profile</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>
         </Menu>
       </Flex>

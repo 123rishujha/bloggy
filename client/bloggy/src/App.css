@@ -4,3 +4,16 @@
   padding: 0px;
   box-sizing: border-box;
 }
+
+.ql-editor .ql-blank{
+  height: auto;
+  min-height: 100vh;;
+}
+
+.ql-toolbar .ql-snow{
+  display: flex;
+  justify-content: "space-around";
+  position: sticky;
+  top: 0px;
+  background: white;
+}

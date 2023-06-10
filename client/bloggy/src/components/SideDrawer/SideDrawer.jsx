@@ -32,9 +32,11 @@ function SideDrawer() {
   return (
     <>
       <IconButton
-        width="100px"
-        variant="outline"
+        borderRadius="50px"
+        width="fit-content"
         bgColor="rgb(89, 159, 187)"
+        color="white"
+        _hover={{ bgColor: "white", color: "black" }}
         aria-label="Search here"
         onClick={onOpen}
         icon={<Search2Icon />}
@@ -47,7 +49,7 @@ function SideDrawer() {
           <DrawerBody>
             <SearchBar handleSearch={handleSearch} />
             <Box marginTop="20px">
-              <ListUser data={users} />
+              <ListUser data={users} onClose={onClose} />
             </Box>
           </DrawerBody>
         </DrawerContent>

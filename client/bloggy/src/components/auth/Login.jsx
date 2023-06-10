@@ -10,14 +10,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import { Navigate } from "react-router-dom";
+import { Navigate,useLocation } from "react-router-dom";
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 //redux function to update reducer state;
 import { useSelector, useDispatch } from "react-redux";
 import { getProfileSuccess, LoginSuccess } from "../../redux/user/user.actions";
-
 
 const Login = () => {
   //   const [name,setName] = useState("");
@@ -28,51 +27,39 @@ const Login = () => {
   const loading = useSelector((store) => store.userReducer.loading);
   const error = useSelector((store) => store.userReducer.error);
   const isAuth = useSelector((store) => store.userReducer.isAuth);
+  const alert = useSelector((store) => store.userReducer.alert);
+  const location = useLocation();
   const dispatch = useDispatch();
+  const commingFrom = location?.state?.data || "/profile"
 
-  console.log("isAuth", isAuth);
+  // console.log("isAuth", isAuth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("email", email, "password", password);
+    // console.log("email", email, "password", password);
     // console.log("submitted");
     dispatch(LoginSuccess({ email, password }));
   };
 
-  //after login setting the users Details in redux
-  // useEffect(() => {
-  //   dispatch(getProfileSuccess());
-  // }, [isAuth]);
-
+  //after login setting the users Details in redux  
+  useEffect(() => {
+    dispatch(getProfileSuccess());
+  }, [isAuth]);
 
   useEffect(() => {
-    if (!loading) {
-      if (isAuth) {
-        toast({
-          title: "Login successfull",
-          status: "success",
-          position: "top-right",
-          isClosable: true,
-        });
-      } else {
-        if (error) {
-          toast({
-            title: "something went wrong",
-            status: "error",
-            position: "top-right",
-            duration: 2000,
-            isClosable: true,
-          });
-        }
-      }
+    if (alert) {
+      toast({
+        title: alert,
+        status: error ? "error" : "success",
+        position: "top-right",
+        isClosable: true,
+      });
     }
-  }, [isAuth, error, loading]);
+  }, [alert]);
 
-
-  if(isAuth){
-    return <Navigate to='/profile' />;
+  if (isAuth) {
+    return <Navigate to={commingFrom} replace />;
   }
-
 
   return (
     <Box>

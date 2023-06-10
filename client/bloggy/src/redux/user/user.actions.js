@@ -13,13 +13,17 @@ export const userError = () => {
   return { type: types.USER_ERROR };
 };
 
+export const userAlert = (payload) => {
+  return {type: types.USER_ALERT,payload}
+}
+
 export const userLogin = (payload) => {
   // payload -> result got from api after successful login
   return { type: types.USER_LOGIN_SUCCESS, payload };
 };
 
 export const userLogout = () => {
-  return { type: types.USER_LOGIN_SUCCESS };
+  return { type: types.USER_LOGOUT_SUCCESS };
 };
 
 export const userProfile = (payload) => {
@@ -40,14 +44,29 @@ export const LoginSuccess = (payload) => async (dispatch) => {
     let response = await api.loginUser(payload);
     console.log("Login response", response);
     if (response?.data?.success && response?.data?.token) {
-      localStorage.setItem("token", response.data.token);
-      dispatch(userLogin(response?.data?.token));
+      // localStorage.setItem("token", response.data.token);
+      dispatch(userLogin(response?.data?.token));//(--***first diapatch userlogin then userAlert)
+      dispatch(userAlert("Login successful"));
     }
   } catch (err) {
     console.log("error part called LoginSuccess", err);
     dispatch(userError());
+    dispatch(userAlert("Something went wrong while loging"));//(--***first diapatch userError then userAlert)
     //userError return -> {type: "user/error/" }  and then
     // dispatch({type: "user/error/" })
+  }
+};
+
+export const logoutSuccess = () => async (dispatch) => {
+  dispatch(userLoading());
+  try {
+    let response = await api.logoutUser();
+    console.log("logout response", response);
+    dispatch(userLogout());
+  } catch (err) {
+    console.log("error part called logoutSuccess", err);
+    dispatch(userError());
+    dispatch(userAlert("Something went wrong while loging"));//(--***first diapatch userError then userAlert)
   }
 };
 
@@ -87,3 +106,5 @@ export const userSearchSuccess = (query) => async (dispatch) => {
     dispatch(userError());
   }
 };
+
+

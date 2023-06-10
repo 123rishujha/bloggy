@@ -3,6 +3,7 @@ import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getChatsSuccess } from "../../redux/chat/chat.actions";
+
 import ChatBox from "../../components/ChatBox.jsx/ChatBox";
 
 const ChatPage = () => {
@@ -10,9 +11,6 @@ const ChatPage = () => {
   const chats = useSelector((store) => store.chatReducer.chats);
   const user = useSelector((store) => store.userReducer.user);
   const dispatch = useDispatch();
-
-  // console.log("chat page rendered", chats);
-  // console.log("chat page rendered---user", user);
 
   useEffect(() => {
     dispatch(getChatsSuccess());
@@ -29,7 +27,7 @@ const ChatPage = () => {
     setChatSelected(details);
   };
 
-  console.log(chatSelected);
+  // console.log(chatSelected);
 
   return (
     <Box
@@ -48,11 +46,12 @@ const ChatPage = () => {
         gap="5px"
         marginTop="10px"
         h="80vh"
-        width="30%"
+        width={{base:"90%",md:"30%"}}
         borderRadius="20px"
         color="gray.700"
         padding="20px"
         boxSizing="border-box"
+        display={{base: chatSelected.chatName ? "none" : "flex",md:"flex"}}
       >
         <Heading>Recent Chats</Heading>
         {chats?.map((elem) => (
@@ -74,7 +73,7 @@ const ChatPage = () => {
           </Flex>
         ))}
       </Flex>
-      <ChatBox {...chatSelected} />
+      <ChatBox {...chatSelected} setChatSelected={setChatSelected} />
     </Box>
   );
 };
