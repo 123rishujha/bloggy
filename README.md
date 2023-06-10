@@ -1,6 +1,5 @@
 # bloggy
-## This is a blog website where user can create blog post and other users can read it
-## Users and also chat with each other. Chat Functionality implement with Socket.io
+## Our website is a dynamic blogging platform that allows users to read, create, and edit blogs. It features real-time chat functionality for engaging with other users. Join us today and unleash your creativity in the world of blogging.
 
 ### How to Start the Website
 ### clone this repo 
