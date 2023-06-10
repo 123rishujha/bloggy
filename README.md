@@ -26,4 +26,15 @@ npm install
 ### Now you can use it completely 
 ##### Screen shorts of some pages
 
+- Profile Pag
+  ![Screenshot (524)](https://github.com/123rishujha/bloggy/assets/107615122/b9f30dd8-cfef-4096-972a-329ad2fa1431)
 
+
+- Blogs Page
+ ![Screenshot (523)](https://github.com/123rishujha/bloggy/assets/107615122/e8a47fe3-7383-4f34-9e29-48af574e4975)
+
+- Blogs Details Page 
+ ![Screenshot (526)](https://github.com/123rishujha/bloggy/assets/107615122/27b4f477-f4d9-49b6-a96a-fe82610ed19c)
+
+- Chat Page
+ ![Screenshot (525)](https://github.com/123rishujha/bloggy/assets/107615122/410f2a65-88b7-4360-a802-a06e94caacc9)
