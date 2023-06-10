@@ -29,7 +29,7 @@ const UserDetails = ({ _id, name, email, pic = null, posts }) => {
 
   // console.log("singleBlog", singleBlog);
 
-  console.log("posts from userDetails com", posts);
+  // console.log("posts from userDetails com", posts);
 
   const toast = useToast();
 

@@ -41,7 +41,7 @@ const EditBlog = () => {
 
   const quillRef = useRef(null);
   const fileInputRef = useRef(null);
-  console.log("blog from edit page", blog);
+  // console.log("blog from edit page", blog);
 
   const toast = useToast();
 
@@ -95,7 +95,7 @@ const EditBlog = () => {
     formData.append("file", value);
     formData.append("upload_preset", "bloggy");
     formData.append("cloud_name", `${process.env.REACT_APP_CLOUD_NAME}`);
-    console.log("formData", formData);
+    // console.log("formData", formData);
     try {
       setImageUploadLoading(true);
       let response = await axios.post(
@@ -103,7 +103,7 @@ const EditBlog = () => {
         `https://api.cloudinary.com/v1_1/dmj1ekjt9/image/upload`,
         formData
       );
-      console.log("image url", response);
+      // console.log("image url", response);
       setImageUploadLoading(false);
       return response?.data?.secure_url;
     } catch (err) {
@@ -121,17 +121,17 @@ const EditBlog = () => {
   };
 
   const imageIconClickHanlder = () => {
-    console.log("image icon clicked");
+    // console.log("image icon clicked");
     fileInputRef.current.click();
   };
 
   const handleFileChange = (e) => {
     let file = e.target.files[0];
-    console.log("file change called ", file);
+    // console.log("file change called ", file);
     if (file) {
       imageUploadHandler(file).then((imageUrl) => {
         if (imageUrl) {
-          console.log("image url", imageUrl);
+          // console.log("image url", imageUrl);
           const range = quillRef.current.getEditor().getSelection(); // return -> {index,length}
           quillRef.current
             .getEditor()
@@ -188,7 +188,7 @@ const EditBlog = () => {
     ["clean"],
   ];
 
-  console.log("image upload loading", imageUploadLoading);
+  // console.log("image upload loading", imageUploadLoading);
 
   return (
     <Box>

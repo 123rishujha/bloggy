@@ -17,12 +17,11 @@ function App() {
   useEffect(() => {
     dispatch(getProfileSuccess());
   }, []);
-
   const location = useLocation();
   return (
     <div className="App">
       <TopNabar />
-      {location.pathname !== "/" ? <CircularNav /> : null}
+      {/* {location.pathname !== "/" ? <CircularNav /> : null} */}
       <AllRoutes />
     </div>
   );

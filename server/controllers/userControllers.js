@@ -47,7 +47,7 @@ const registerController = async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.log("error from registerCon");
+    console.log("error from registerCon",err);
     let error = new Error(err);
     // throw error;
     next(error);
@@ -61,7 +61,7 @@ const loginController = async (req, res, next) => {
     if (!userFound) {
       let err = { message: "User Not Found" };
       err.statusCode = 404;
-      console.log("user not found", err);
+      // console.log("user not found", err);
       next(err);
       return;
     } else {
@@ -72,12 +72,12 @@ const loginController = async (req, res, next) => {
           `${process.env.JWT_SECRET}`
         );
         // res.cookie("token",token,{httpOnly: false}).send({ success: true, message: "login successful", token });
-        res
-          .cookie("token", token, {
-            httpOnly: true,
-            domain: `${process.env.DOMAIN}`,
-          })
-          .send({ success: true, token, message: "login successful" });
+        // res
+        //   .cookie("token", token, {
+        //     httpOnly: true,
+        //     domain: `${process.env.DOMAIN}`,
+        //   })
+          res.send({ success: true, token, message: "login successful" });
       } else {
         console.log("error occured while comparing password during login", err);
         next(err);

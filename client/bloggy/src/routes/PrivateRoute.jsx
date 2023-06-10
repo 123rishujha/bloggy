@@ -7,7 +7,7 @@ const PrivateRoute = ({children}) =>{
     
     let obj = {data: location?.pathname}
     
-    console.log("user from PrivateRoute",isAuth);
+    // console.log("user from PrivateRoute",isAuth);
     if(!isAuth){
         return <Navigate to='/' state={obj} />
     }

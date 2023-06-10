@@ -18,7 +18,7 @@ const createBlog = async (req, res, next) => {
   try {
     let blog = new BlogModel(payload);
     let savedBlog = await blog.save();
-    console.log(savedBlog);
+    // console.log(savedBlog);
     res.json({
       success: true,
       message: "blog create successfully",
@@ -45,7 +45,7 @@ const updateBlog = async (req, res, next) => {
       return;
     }
     if (!blog.author.equals(req.user._id)) {
-      console.log("checking author of blog", blog.author.equals(req.user._id));
+      // console.log("checking author of blog", blog.author.equals(req.user._id));
       return res.status(403).json({
         success: false,
         message: "Forbidden, You are not author of this blog",
@@ -92,7 +92,7 @@ const getSingleBlog = async (req, res, next) => {
     }
     res.json({ success: true, result: blog });
   } catch (err) {
-    console.log("error in getSingleBlog controllers");
+    console.log("error in getSingleBlog controllers",err);
     next(err);
   }
 };

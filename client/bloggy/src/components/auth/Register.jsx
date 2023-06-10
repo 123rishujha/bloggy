@@ -30,15 +30,14 @@ const Register = () => {
     // console.log(payload);
     setLoading(true);
     try {
-      // let response = await axios.post(
-      //   `https://4p0ph0-8080.csb.app/api/user/register`,
-      //   payload
-      // );
       let response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/api/user/register`,
         payload,
         {
-          withCredentials: true,
+          // withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       console.log(response);

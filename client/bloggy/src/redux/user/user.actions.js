@@ -44,12 +44,12 @@ export const LoginSuccess = (payload) => async (dispatch) => {
     let response = await api.loginUser(payload);
     console.log("Login response", response);
     if (response?.data?.success && response?.data?.token) {
-      // localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.data.token);
       dispatch(userLogin(response?.data?.token));//(--***first diapatch userlogin then userAlert)
       dispatch(userAlert("Login successful"));
     }
   } catch (err) {
-    console.log("error part called LoginSuccess", err);
+    // console.log("error part called LoginSuccess", err);
     dispatch(userError());
     dispatch(userAlert("Something went wrong while loging"));//(--***first diapatch userError then userAlert)
     //userError return -> {type: "user/error/" }  and then
@@ -60,8 +60,9 @@ export const LoginSuccess = (payload) => async (dispatch) => {
 export const logoutSuccess = () => async (dispatch) => {
   dispatch(userLoading());
   try {
-    let response = await api.logoutUser();
-    console.log("logout response", response);
+    // let response = await api.logoutUser();
+    localStorage.clear("token");
+    // console.log("logout response", response);
     dispatch(userLogout());
   } catch (err) {
     console.log("error part called logoutSuccess", err);

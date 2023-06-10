@@ -3,7 +3,7 @@ import BlogCard from "../BlogCard/BlogCard";
 import Styles from "./ListBlogs.module.css";
 
 const ListBlogs = ({ blogs }) => {
-  console.log("ListBlogs", blogs);
+  // console.log("ListBlogs", blogs);
   return (
     <Grid
       templateColumns={{
@@ -14,8 +14,8 @@ const ListBlogs = ({ blogs }) => {
       className={Styles.mainBlogsContainer}
     >
       {blogs?.map((elem) => (
-        <GridItem height="300px">
-          <BlogCard key={elem._id} {...elem} />
+        <GridItem height="300px" key={elem._id}>
+          <BlogCard  {...elem} />
         </GridItem>
       ))}
     </Grid>

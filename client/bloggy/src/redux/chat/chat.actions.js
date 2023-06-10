@@ -32,12 +32,12 @@ export const getChats = (payload) => {
 
 export const getChatsSuccess = () => async (dispatch) => {
   //get profile of loggedIn User
-  console.log("getChatsSuccess");
+  // console.log("getChatsSuccess");
   dispatch(chatLoading());
   try {
     let response = await api.getChats();
     let actual_data = response?.data;
-    console.log(actual_data);
+    // console.log(actual_data);
     if (actual_data.success) {
       dispatch(getChats(actual_data.result));
     }
@@ -52,7 +52,7 @@ export const accessChatSuccess = (userId) => async (dispatch) => {
   try {
     let response = await api.accessChats({userId});
     let actual_data = response?.data;
-    console.log(actual_data);
+    // console.log(actual_data);
     dispatch(getChatsSuccess());
     dispatch(chatAlert("You can start chating"));
     // dispatch(chatSelected(actual_data));

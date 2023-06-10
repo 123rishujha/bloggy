@@ -18,7 +18,7 @@ const ProfilePage = () => {
   const loading = useSelector((store) => store.userReducer.loading);
   const blogs = useSelector((store) => store.blogReducer.blogs);
   const { userId } = useParams();
-  console.log("userId from profilepage", userId);
+  // console.log("userId from profilepage", userId);
   // const [userBlogs, setUserBlogs] = useState(
   //   blogs.filter((elem) => elem.author._id === (userId ? userId : user._id)) ||
   //     []

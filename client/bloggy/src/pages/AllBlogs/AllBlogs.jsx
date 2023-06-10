@@ -12,7 +12,7 @@ import ListBlogs from "../../components/ListBlogs/ListBlogs";
 const AllBlogs = () => {
   const blogs = useSelector((store) => store.blogReducer.blogs);
   const dispatch = useDispatch();
-  console.log("All blogs page", blogs);
+  // console.log("All blogs page", blogs);
 
   useEffect(() => {
     if (blogs.length == 0) {

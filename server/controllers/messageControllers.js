@@ -48,7 +48,7 @@ const getMessages = async (req, res, next) => {
       result: message,
     });
   } catch (err) {
-    console.log("error occured while fetching message in messageController");
+    console.log("error occured while fetching message in messageController",err);
     next(err);
   }
 };

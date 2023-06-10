@@ -49,7 +49,7 @@ export const getBlogsSuccess = () => async (dispatch) => {
   try {
     let blogs = await api.getBlogsAPI();
     let actual_blogs = blogs.data;
-    console.log(actual_blogs);
+    // console.log(actual_blogs);
     dispatch(getBlogs(actual_blogs?.result));
   } catch (err) {
     dispatch(errorBlog());
@@ -62,7 +62,7 @@ export const getSingleBlogSuccess = (blogId) => async (dispatch) => {
   try {
     let blog = await api.getSingleBlogAPI(blogId);
     let actual_blog = blog?.data?.result;
-    console.log(actual_blog);
+    // console.log(actual_blog);
     dispatch(getSingleBlog(actual_blog));
   } catch (err) {
     dispatch(errorBlog());
@@ -74,7 +74,7 @@ export const updateBlogSuccess = (payload, blogId) => async (dispatch) => {
   try {
     let result = await api.updateAPI(payload, blogId);
     let blog_res = result.data.result;
-    console.log("updatedBlogSuccess", blog_res);
+    // console.log("updatedBlogSuccess", blog_res);
     dispatch(updateBlog(blog_res));
     dispatch(alertBlog("Changes Saved"));
   } catch (err) {

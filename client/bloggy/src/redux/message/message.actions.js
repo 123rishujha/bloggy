@@ -26,7 +26,7 @@ export const getMessagesSuccess = (chatId,socket) => async (dispatch) => {
   try {
     let response = await api.messages(chatId);
     let actual_data = response?.data;
-    console.log("message actual data",actual_data);
+    // console.log("message actual data",actual_data);
     if (actual_data.success) {
       socket.emit("join chat",chatId);
       dispatch(getMessages(actual_data.result));
@@ -44,7 +44,7 @@ export const sendMessageSuccess = (chatId,payload,socket) => async (dispatch) =>
     let response = await api.postMessages(chatId,payload,socket);
     let actual_data = response?.data;
     if(actual_data?.success) {
-      console.log("sendMessageSuccess with sockets",actual_data.result);
+      // console.log("sendMessageSuccess with sockets",actual_data.result);
       socket.emit("new message",actual_data.result)
       dispatch(sendMessage(actual_data.result));
     }

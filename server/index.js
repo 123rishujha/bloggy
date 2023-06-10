@@ -22,15 +22,14 @@ const app = express();
 //     domain: `${process.env.DOMAIN}`,
 //   })
 // );
-app.use(cookieParser());
-
-app.use(
-  cors({
-    origin: process.env.FRONT_END_URL,
-    credentials: true,
-  })
-);
-
+// app.use(cookieParser());
+// app.use(
+//   cors({
+//     origin: `https://bloggy-cyan.vercel.app/`,
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 
 app.get("/", authMiddleware, (req, res) => {
@@ -50,7 +49,6 @@ app.all("*", (req, res, next) => {
   next(error);
 });
 
-// app.use(errorHandler);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "something went wrong";
@@ -74,7 +72,6 @@ const httpServer = app.listen(8080, async () => {
 const io = require("socket.io")(httpServer, {
   cors: {
     origin: `${process.env.FRONT_END_URL}`,
-    // origin: "https://rik1o5-3000.csb.app",
     credential: true,
   },
 });

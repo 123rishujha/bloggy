@@ -33,7 +33,7 @@ const accessChat = async (req, res, next) => {
         try {
           // savedChat = await ChatModel.findById({_id:savedChat._id}).populate("users","-password")
           savedChat = await savedChat.populate("users", "-password");
-          console.log("finding after saving chat");
+          // console.log("finding after saving chat");
           res.json({
             success: true,
             message: "new chat created successfully",
@@ -52,7 +52,7 @@ const accessChat = async (req, res, next) => {
       }
     }
   } catch (err) {
-    console.log("accessChat error ");
+    console.log("accessChat error",err);
     next(err);
   }
 };
@@ -71,7 +71,7 @@ const getChats = async (req, res, next) => {
       result: chats,
     });
   } catch (err) {
-    console.log("error occured while fetching all the chat's");
+    console.log("error occured while fetching all the chat's",err);
     next(err);
   }
 };

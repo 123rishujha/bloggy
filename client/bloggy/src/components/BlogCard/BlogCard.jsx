@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import defaultBackgroundImage from "./background.svg";
 
 const BlogCard = ({ coverImage, title, author, _id }) => {
-  console.log(coverImage, title, author);
+  // console.log(coverImage, title, author);
   return (
     <Box className={Styles.blogCard}>
       <Link to={`/profile/${author?._id}`}>
