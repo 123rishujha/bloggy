@@ -12,7 +12,7 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(store=>store.userReducer.user)
   
-  console.log("user app.js",user);
+  // console.log("user app.js",user);
   
   useEffect(() => {
     dispatch(getProfileSuccess());

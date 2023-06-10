@@ -2,7 +2,6 @@ const { UserModel } = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
 const registerController = async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -15,7 +14,7 @@ const registerController = async (req, res, next) => {
   try {
     let existUser = await UserModel.findOne({ email });
     if (existUser) {
-      console.log("user exist");
+      // console.log("user exist");
       let err = new Error("user already exist with the provided email");
       err.statusCode = 401;
       next(err);
@@ -73,11 +72,12 @@ const loginController = async (req, res, next) => {
           `${process.env.JWT_SECRET}`
         );
         // res.cookie("token",token,{httpOnly: false}).send({ success: true, message: "login successful", token });
-        res.cookie("token", token, {
-          httpOnly: true,
-          maxAge:  1000 * 60 * 60, // 1 hour,
-          // domain: "localhost",
-        }).send({success:true,token,message:"login successful"});
+        res
+          .cookie("token", token, {
+            httpOnly: true,
+            domain: `${process.env.DOMAIN}`,
+          })
+          .send({ success: true, token, message: "login successful" });
       } else {
         console.log("error occured while comparing password during login", err);
         next(err);
@@ -90,22 +90,19 @@ const loginController = async (req, res, next) => {
   }
 };
 
-
-const logoutController = (req,res,next)=>{
+const logoutController = async (req, res, next) => {
   const user = req.user;
-  console.log("user from logout",user);
-  if(!user){
-      let error = new Error("User not Authorized");
-      error.statusCode = 401;
-      next(error);
-      return;
-  }else{
-    res.clearCookie("token");
-    res.status(200).json({success:true,message:"Logout successfully",user});
+  // console.log("user from logout", user);
+  if (!user._id) {
+    let error = new Error("User not Authorized");
+    error.statusCode = 401;
+    next(error);
+    return;
   }
-}
-
-
+  // req.clearCookie("token");
+  res.clearCookie("token", { domain: process.env.DOMAIN });
+  res.status(200).json({ success: true, message: "Logout successfully", user });
+};
 
 const getAllUsers = async (req, res, next) => {
   const { search } = req.query;
@@ -136,7 +133,7 @@ const getAllUsers = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
   let userId = req.params.userId || req.user._id;
-  console.log(userId);
+  // console.log(userId);
   if (!userId) {
     let error = new Error("Forbiden");
     error.statusCode = 403;

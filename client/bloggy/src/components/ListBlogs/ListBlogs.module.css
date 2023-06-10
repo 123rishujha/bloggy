@@ -1,0 +1,9 @@
+/* this will contain all the blogs card inside it */
+.mainBlogsContainer {
+  grid-gap: 10px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+}

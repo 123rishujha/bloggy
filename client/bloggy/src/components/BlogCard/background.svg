@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <defs>
+    <style>
+      .bg-rect {
+        fill: #17223b;
+      }
+      .text {
+        fill: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+      }
+      .computer {
+        fill: #ffffff;
+      }
+      .books {
+        fill: #ffffff;
+      }
+    </style>
+  </defs>
+  <rect class="bg-rect" width="100%" height="100%" />
+  <text class="text" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">
+    BLOG
+  </text>
+  <g class="computer">
+    <rect x="70" y="120" width="160" height="100" rx="10" />
+    <rect x="80" y="130" width="140" height="80" rx="5" />
+    <rect x="95" y="150" width="110" height="20" rx="5" />
+  </g>
+  <g class="books">
+    <rect x="20" y="150" width="60" height="80" rx="5" />
+    <rect x="220" y="150" width="60" height="80" rx="5" />
+  </g>
+</svg>

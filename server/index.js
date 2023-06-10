@@ -10,36 +10,31 @@ const { connection } = require("./config/db");
 const { userRouter } = require("./routes/userRoutes");
 const { chatRouter } = require("./routes/chatRoutes");
 const { messageRoutes } = require("./routes/messageRoutes");
+const { blogRoutes } = require("./routes/blogRoutes");
 const { authMiddleware } = require("./middlewares/authMiddleware");
 // const { use } = require("bcrypt/promises");
 
 const app = express();
 
-app.use(cookieParser(null,{
-  // domain:"localhost"
-  domain: `${process.env.DOMAIN}`
- }));
-// app.use(cookieParser());
+// app.use(
+//   cookieParser(null, {
+//     // domain:"localhost"
+//     domain: `${process.env.DOMAIN}`,
+//   })
+// );
+app.use(cookieParser());
 
-app.use(cors({
-  origin: process.env.FRONT_END_URL, 
-  credentials: true
-}));
-// app.use((req, res, next) => {
-//   console.log(process.env.FRONT_END_URL);
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   res.setHeader("Access-Control-Allow-Origin", process.env.FRONT_END_URL);
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, OPTIONS, PUT, DELETE"
-//   );
-//   next();
-// });
+app.use(
+  cors({
+    origin: process.env.FRONT_END_URL,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 app.get("/", authMiddleware, (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   res.json({ message: "working" });
 });
 
@@ -47,6 +42,7 @@ app.get("/", authMiddleware, (req, res) => {
 app.use("/api/user", userRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/message", messageRoutes);
+app.use("/api/blogs",blogRoutes);
 
 //for handling invalid routes -> 404 Not Found
 app.all("*", (req, res, next) => {
@@ -86,28 +82,25 @@ const io = require("socket.io")(httpServer, {
 io.on("connection", (socket) => {
   // console.log(socket);
   console.log("connected to sockets");
-  socket.on("setup",(userId)=>{
+  socket.on("setup", (userId) => {
     socket.join(userId);
     socket.emit("connected");
-  })
-  
+  });
+
   //join chat/room
-  socket.on("join chat",(chatId)=>{
+  socket.on("join chat", (chatId) => {
     socket.join(chatId);
   });
-  
-  socket.on("new message",(newMessageData)=>{
-    console.log("new message called",newMessageData.message);
-    let chat = newMessageData?.chatId;
-    if(!chat?.users) return;
-    // console.log("yes")
-    chat.users.forEach((elem)=>{
-      console.log("forEach working",elem,newMessageData.sender._id);
-      if(elem != newMessageData.sender._id){
-        console.log(true,"for each");
-        socket.in(elem).emit('arrived',newMessageData);
-      }
-    })
-  })  
-});
 
+  socket.on("new message", (newMessageData) => {
+    // console.log("new message called", newMessageData.message);
+    let chat = newMessageData?.chatId;
+    if (!chat?.users) return;
+    // console.log("yes")
+    chat.users.forEach((elem) => {
+      if (elem != newMessageData.sender._id) {
+        socket.in(elem).emit("arrived", newMessageData);
+      }
+    });
+  });
+});
