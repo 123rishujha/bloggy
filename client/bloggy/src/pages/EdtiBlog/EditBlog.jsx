@@ -191,7 +191,7 @@ const EditBlog = () => {
   // console.log("image upload loading", imageUploadLoading);
 
   return (
-    <Box>
+    <Box marginTop='100px'>
       <Flex justifyContent="center" marginBottom={"10px"}>
         <Input
           width="50%"

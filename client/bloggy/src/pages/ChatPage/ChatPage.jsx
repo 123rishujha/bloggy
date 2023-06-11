@@ -22,7 +22,6 @@ const ChatPage = () => {
   };
 
   const handleClick = (elem) => {
-    // console.log(elem);
     let details = { ...elem, chatName: getSender(elem.users)?.toUpperCase() };
     setChatSelected(details);
   };
@@ -34,7 +33,7 @@ const ChatPage = () => {
       w="100%"
       height="100vh"
       margin="auto"
-      marginTop="-20px"
+      marginTop="50px"
       display="flex"
       justifyContent="center"
       gap="10px"

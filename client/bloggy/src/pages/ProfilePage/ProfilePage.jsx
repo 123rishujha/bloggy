@@ -62,7 +62,7 @@ const ProfilePage = () => {
   }, [userId]);
 
   return (
-    <Box>
+    <Box marginTop='100px'>
       {/*  ...details means user viewing the profile of another user (...user) means user viewing their own profile  */}
       {details ? (
         <UserDetails posts={userBlogs} {...details} />

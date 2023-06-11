@@ -15,13 +15,13 @@ const AllBlogs = () => {
   // console.log("All blogs page", blogs);
 
   useEffect(() => {
-    if (blogs.length == 0) {
+    // if (blogs.length == 0) {
       dispatch(getBlogsSuccess());
-    }
+    // }
   }, []);
 
   return (
-    <Box w="90%" margin="auto">
+    <Box w="90%" margin="auto" marginTop='90px'>
       <Heading margin="10px">Latest Blogs</Heading>
       <ListBlogs blogs={blogs} />
     </Box>

@@ -17,7 +17,7 @@ const BlogCard = ({ coverImage, title, author, _id }) => {
           gap="5px"
         >
           <Avatar name={author?.name} src={author?.image} />
-          <Text color="black">{author?.name.toUpperCase()}</Text>
+          <Text color="black">{author?.name?.toUpperCase()}</Text>
         </Flex>
       </Link>
       <Link to={`/blog/${_id}`}>

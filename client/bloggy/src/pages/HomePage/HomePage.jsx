@@ -17,7 +17,7 @@ const HomePage = () => {
     <Box
       display="flex"
       m="auto"
-      mt="50px"
+      mt="150px"
       w={{ base: "70vw", md: "40vw" }}
       h="100Vh"
     >

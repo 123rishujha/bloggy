@@ -49,7 +49,7 @@ const SingleBlogPage = () => {
   }, [blogId, blogs]);
 
   return (
-    <Box>
+    <Box marginTop='100px'>
       <VStack maxH="auto" height="fit-content" width="100%">
         {blog?.author?._id == user?._id && (
           <Link to={`/edit/${blog?._id}`}>
