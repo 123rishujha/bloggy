@@ -1,5 +1,5 @@
 # bloggy
-## Dynamic blogging platform that allows users to read, create, and edit blogs. It features real-time chat functionality for engaging with other users. Join us today and unleash your creativity in the world of blogging.
+## Dynamic blogging platform that allows users to read, create, and edit blogs. It features real-time chat functionality for engaging with other users
 
 ### How to Start the Website
 ### clone this repo 
