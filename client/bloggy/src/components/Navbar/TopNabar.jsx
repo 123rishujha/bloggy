@@ -1,10 +1,10 @@
 import {
   Flex,
   useColorMode,
-  Image,
+  // Image,
   Avatar,
-  SunIcon,
-  Button,
+  // SunIcon,
+  // Button,
   Box,
   IconButton,
   WrapItem,
@@ -46,15 +46,15 @@ const TopNabar = () => {
       bg="button.bg"
       h="70px"
       w="100%"
-      justifyContent = "space-between"
-      alignItems = "center"
-      marginBottom = "20px"
-      position = 'fixed'
-      top = "0px"
+      justifyContent="space-between"
+      alignItems="center"
+      marginBottom="20px"
+      position="fixed"
+      top="0px"
       zIndex="20"
     >
       <Flex>
-        <Image alt="logo" />
+        {/* <Image alt="logo" /> */}
         <IconButton
           variant="ghost"
           onClick={toggleColorMode}

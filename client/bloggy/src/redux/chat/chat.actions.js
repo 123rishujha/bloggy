@@ -11,9 +11,9 @@ export const chatError = () => {
   return { type: types.CHAT_ERROR };
 };
 
-export const chatAlert = (payload) =>{
-  return {type: types.CHAT_ALERT,payload}
-}
+export const chatAlert = (payload) => {
+  return { type: types.CHAT_ALERT, payload };
+};
 
 export const postChat = (payload) => {
   return { type: types.CHAT_POST_SUCCESS, payload };
@@ -26,7 +26,6 @@ export const getChats = (payload) => {
 // export const chatSelected = (payload) => {
 //   return {type: types.CHAT_SELECTED,payload};
 // }
-
 
 // redux functions to update reducers state;
 
@@ -50,8 +49,8 @@ export const getChatsSuccess = () => async (dispatch) => {
 export const accessChatSuccess = (userId) => async (dispatch) => {
   dispatch(chatLoading());
   try {
-    let response = await api.accessChats({userId});
-    let actual_data = response?.data;
+    await api.accessChats({ userId });
+    // let actual_data = response?.data;
     // console.log(actual_data);
     dispatch(getChatsSuccess());
     dispatch(chatAlert("You can start chating"));
@@ -61,4 +60,4 @@ export const accessChatSuccess = (userId) => async (dispatch) => {
     dispatch(chatError());
     dispatch(chatAlert("Something went wrong while creating chat"));
   }
-}
+};

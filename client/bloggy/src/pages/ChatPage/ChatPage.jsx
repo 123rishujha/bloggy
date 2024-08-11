@@ -45,12 +45,12 @@ const ChatPage = () => {
         gap="5px"
         marginTop="10px"
         h="80vh"
-        width={{base:"90%",md:"30%"}}
+        width={{ base: "90%", md: "30%" }}
         borderRadius="20px"
         color="gray.700"
         padding="20px"
         boxSizing="border-box"
-        display={{base: chatSelected.chatName ? "none" : "flex",md:"flex"}}
+        display={{ base: chatSelected.chatName ? "none" : "flex", md: "flex" }}
       >
         <Heading>Recent Chats</Heading>
         {chats?.map((elem) => (
