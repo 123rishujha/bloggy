@@ -24,6 +24,7 @@ import {
   updateBlogSuccess,
   alertBlog,
 } from "../../redux/blog/blog.actions";
+import { CheckIcon } from "@chakra-ui/icons";
 
 const EditBlog = () => {
   const { blogId } = useParams();
@@ -191,8 +192,8 @@ const EditBlog = () => {
   // console.log("image upload loading", imageUploadLoading);
 
   return (
-    <Box marginTop='100px'>
-      <Flex justifyContent="center" marginBottom={"10px"}>
+    <Box marginTop="100px">
+      <Flex justifyContent="center" marginBottom={"10px"} gap={"10px"}>
         <Input
           width="50%"
           ref={titleRef}
@@ -211,12 +212,13 @@ const EditBlog = () => {
         onChange={handleCoverImage}
       />
       {coverImage && <Image margin="auto" src={coverImage} alt="coverImage" />}
-      <Flex justifyContent={"flex-end"}>
+      <Flex justifyContent={"flex-end"} m={"auto"} my={"10px"} width={"90%"}>
         <Button
           isLoading={blogLoading}
           loadingText="saving..."
-          bg="button.bg"
-          color="white"
+          // bg="button.bg"
+          // color="white"
+          leftIcon={<CheckIcon />}
           onClick={handleSave}
         >
           Save Changes
