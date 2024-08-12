@@ -23,9 +23,11 @@ const ProfilePage = () => {
   //   blogs.filter((elem) => elem.author._id === (userId ? userId : user._id)) ||
   //     []
   // );
-  
-  const userBlogs =  blogs.filter((elem) => elem.author._id === (userId ? userId : user._id)) || [];
-  
+
+  const userBlogs =
+    blogs.filter((elem) => elem.author._id === (userId ? userId : user._id)) ||
+    [];
+
   const dispatch = useDispatch();
 
   // console.log("Profile page", details);
@@ -45,6 +47,7 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    console.log("909 called profile page");
     if (userId) {
       //here if we are viewing the profile of anouther user then we will not use redux because that can overide the value of user file in userReducer and we don't want that because the is the value of loggedIn User so we will make api call here directly with distrubing the redux
       getData();
@@ -62,7 +65,7 @@ const ProfilePage = () => {
   }, [userId]);
 
   return (
-    <Box marginTop='100px'>
+    <Box marginTop="100px">
       {/*  ...details means user viewing the profile of another user (...user) means user viewing their own profile  */}
       {details ? (
         <UserDetails posts={userBlogs} {...details} />

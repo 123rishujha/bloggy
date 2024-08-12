@@ -27,10 +27,6 @@ const UserDetails = ({ _id, name, email, pic = null, posts }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // console.log("singleBlog", singleBlog);
-
-  // console.log("posts from userDetails com", posts);
-
   const toast = useToast();
 
   const handleBlogCreate = () => {
@@ -59,7 +55,6 @@ const UserDetails = ({ _id, name, email, pic = null, posts }) => {
 
   useEffect(() => {
     if (user._id !== _id) {
-      // console.log("userId", user._id, "id", _id);
       if (alert) {
         toast({
           title: alert,
@@ -76,7 +71,6 @@ const UserDetails = ({ _id, name, email, pic = null, posts }) => {
 
   useEffect(() => {
     if (!_id || !name || !email) {
-      // console.log("called user profile in UserDetails comp", user);
       dispatch(getProfileSuccess());
     }
   }, []);

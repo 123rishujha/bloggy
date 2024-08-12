@@ -10,7 +10,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import { Navigate,useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
@@ -27,10 +27,11 @@ const Login = () => {
   const loading = useSelector((store) => store.userReducer.loading);
   const error = useSelector((store) => store.userReducer.error);
   const isAuth = useSelector((store) => store.userReducer.isAuth);
+
   const alert = useSelector((store) => store.userReducer.alert);
   const location = useLocation();
   const dispatch = useDispatch();
-  const commingFrom = location?.state?.data || "/profile"
+  const commingFrom = location?.state?.data || "/profile";
 
   // console.log("isAuth", isAuth);
 
@@ -41,9 +42,12 @@ const Login = () => {
     dispatch(LoginSuccess({ email, password }));
   };
 
-  //after login setting the users Details in redux  
+  //after login setting the users Details in redux
   useEffect(() => {
-    dispatch(getProfileSuccess());
+    if (localStorage.getItem("token")) {
+      console.log("909 called in login page");
+      dispatch(getProfileSuccess());
+    }
   }, [isAuth]);
 
   useEffect(() => {

@@ -12,8 +12,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.userReducer.user);
 
-  // console.log("user app.js",user);
-
   useEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(getProfileSuccess());
