@@ -38,3 +38,8 @@ npm install
 
 - Chat Page
  ![Screenshot (525)](https://github.com/123rishujha/bloggy/assets/107615122/410f2a65-88b7-4360-a802-a06e94caacc9)
+
+
+
+
+you can use this credential if you want to export email: - jharishu796@gmail.com, password: 123test@  or you can create your own by doing signup
