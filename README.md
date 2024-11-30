@@ -42,4 +42,4 @@ npm install
 
 
  
- # Note:-  you can use this credential if you want to explore email: - jharishu796@gmail.com, password: 123test@  or you can create your own by doing signup
+ ### Note:-  you can use this credential if you want to explore email: - jharishu796@gmail.com, password: 123test@  or you can create your own by doing signup
