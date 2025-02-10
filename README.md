@@ -1,4 +1,7 @@
-# bloggy
+# Bloggy  
+🚀 [Visit Deployed Site](https://writebloggy.netlify.app/blogs)
+📂 [GitHub Repository](https://github.com/123rishujha/bloggy)
+
 ## Dynamic blogging platform that allows users to read, create, and edit blogs. It features real-time chat functionality for engaging with other users
 
 ### How to Start the Website
